@@ -44,12 +44,23 @@ void analyseToken(string token) {
     if(token.length() <= 0) {
         return;
     }
+    // 先判断好是不是关键字
     if(isAllLetter(token) && keyword.count(toLower(token))) {
         printToken(token, tokenCodeMap[token]);
         return;
     }
-    //TODO:自动机处理
-    cout<<token<<endl;
+    /**
+     * TODO:自动机处理，周一要把这个给写了
+     * 思路：
+     * 1. 先用正则表达式构造NFA
+     * 2. NFA转成DFA
+     * 3. DFA最小化
+     * 4. 把token扔进最小化的DFA看看返回什么状态---> 标识符或变量，以及错误状态，只有这三种可能
+     * 注意：
+     * 1. 这里只需要返回TokenCode即可
+     * 2. 暂时先让TokenCode都是IDN
+    */
+    printToken(token, TokenCode::IDN);
 }
 
 void lexicalAnalysis(string fileName) {
@@ -63,7 +74,7 @@ void lexicalAnalysis(string fileName) {
     string token = "";
     /**
      * 算法概括：
-     * 除了分割符、界符和运算符之外，其余所有token序列都应交给自动机判断
+     * 除了分割符和已经定义好的界符和运算符之外，其余所有!所有！token序列都应交给自动机判断
      * 所以这里就是要利用分隔符、界符和运算符将程序分开，因为带有运算符的字符串不应该进入自动机
     */
     while((c = file.get()) != EOF) {

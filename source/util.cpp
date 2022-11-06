@@ -74,7 +74,7 @@ void printToken(string token, int code) {
     if(code != TokenCode::IDN && code != TokenCode::INT) {
         result += "," + to_string(code) + ">";
     } else {
-        result += "<," + token + ">";
+        result += "," + token + ">";
     }
     cout << result << endl;
 }
