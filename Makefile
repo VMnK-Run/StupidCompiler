@@ -1,11 +1,12 @@
 SRC_DIR := source
-OBJ_DIR := target
+TEST_DIR := test
 INC_DIR := include
 
 # all src files
-SRC := $(wildcard $(SRC_DIR)/*.cpp)
-# all objects
-OBJ := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC))
+ALLSRC := $(wildcard $(SRC_DIR)/*.cpp)
+SRC += $(filter-out $(SRC_DIR)/main.cpp $(SRC_DIR)/lexical.cpp $(SRC_DIR)/syntax.cpp, $(ALLSRC))
+# test src files
+TESTSRC += $(filter-out $(SRC_DIR)/main.cpp, $(SRC)) $(wildcard $(TEST_DIR)/*.cpp)
 # C++ compiler
 CC := g++
 # CPP PreProcessor Flag
@@ -13,20 +14,25 @@ CPPFLAGS := -I $(INC_DIR)
 # Compiler flags
 CFLAGS := -g -Wall
 
-default: all
-all: main
+default: main
+all: main lexical syntax
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(OBJ_DIR)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+main: $(SRC) $(SRC_DIR)/main.cpp
+		$(CC) $(CPPFLAGS) $(CFLAGS) -Werror $^ -o $@
 
-main: $(OBJ)
-		$(CC) -Werror $^ -o $@
 
-$(OBJ_DIR):
-	mkdir $@
+lexical: $(SRC) $(SRC_DIR)/lexical.cpp
+		$(CC) $(CPPFLAGS) $(CFLAGS) -Werror $^ -o $@
+
+
+syntax: $(SRC) $(SRC_DIR)/syntax.cpp
+		$(CC) $(CPPFLAGS) $(CFLAGS) -Werror $^ -o $@
+
+test: $(TESTSRC)
+		$(CC) $(CPPFLAGS) $(CFLAGS) -Werror $^ -o $@
+		./test.exe
 
 clean:
 	del *.exe 
-	del $(OBJ_DIR)\*.o
 
-.PHONY: clean all
+.PHONY: clean all main

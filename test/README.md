@@ -1,0 +1,1 @@
+一个专门用来测试的文件夹，在MakeFile中输入make test，编译该文件夹下的所有cpp。

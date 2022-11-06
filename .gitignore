@@ -1,2 +1,4 @@
 /target
+.vscode
 *.exe
+/test/*.cpp
