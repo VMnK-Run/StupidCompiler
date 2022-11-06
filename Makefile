@@ -18,18 +18,18 @@ default: main
 all: main lexical syntax
 
 main: $(SRC) $(SRC_DIR)/main.cpp
-		$(CC) $(CPPFLAGS) $(CFLAGS) -Werror $^ -o $@
+		$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
 
 lexical: $(SRC) $(SRC_DIR)/lexical.cpp
-		$(CC) $(CPPFLAGS) $(CFLAGS) -Werror $^ -o $@
+		$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
 
 syntax: $(SRC) $(SRC_DIR)/syntax.cpp
-		$(CC) $(CPPFLAGS) $(CFLAGS) -Werror $^ -o $@
+		$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
 test: $(TESTSRC)
-		$(CC) $(CPPFLAGS) $(CFLAGS) -Werror $^ -o $@
+		$(CC) $(CPPFLAGS) $(CFLAGS)  $^ -o $@
 		./test.exe
 
 clean:
