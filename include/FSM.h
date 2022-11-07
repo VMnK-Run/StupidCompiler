@@ -1,3 +1,6 @@
+#ifndef __FSM_H__
+#define __FSM_H__
+
 #include <iostream>
 #include <string>
 #include <map>
@@ -51,3 +54,5 @@ FSM NFAtoDFA(FSM NFA);
 FSM minimizeDFA(FSM DFA);
 
 int identity(FSM DFA, string token);    // 是否识别
+
+#endif

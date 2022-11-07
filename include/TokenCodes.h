@@ -1,3 +1,6 @@
+#ifndef __TOKENCODES_H__
+#define __TOKENCODES_H__
+
 enum TokenCode{
     UNDIFNIE = 0,   //未定义
 
@@ -35,3 +38,5 @@ enum TokenCode{
     IDN,            // 标识符: (letter|_)(letter|digit|_)*
     INT             // 整数: digit digit*
 };
+
+#endif

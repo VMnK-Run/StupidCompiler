@@ -1,3 +1,6 @@
+#ifndef __UTIL_H__
+#define __UTIL_H__
+
 #include <iostream>
 #include <string>
 #include <set>
@@ -13,3 +16,5 @@ bool isAllLetter(string str);
 void printToken(string token, int code);
 
 set<char> getLetterList(char ch);
+
+#endif
