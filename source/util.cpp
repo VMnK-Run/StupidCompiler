@@ -78,3 +78,27 @@ void printToken(string token, int code) {
     }
     cout << result << endl;
 }
+
+set<char> getLetterList(char c) {
+    set<char> result;
+    if(isalpha(c) || c == '_') {
+        set<char> letterList = {'_'};
+        for (char c = 'a'; c <= 'z'; c++) {
+            letterList.insert(c);
+        }
+        for (char c = 'A'; c <= 'Z'; c++) {
+            letterList.insert(c);
+        }
+        return letterList;
+    } else if(c == '0') {
+        result = {'0'};
+        return result;
+    } else if(c >= '1' && c <= '9') {
+        set<char> numList;
+        for (char c = '1'; c <= '9'; c++) {
+            numList.insert(c);
+        }
+        return numList;
+    }
+    return result;
+}

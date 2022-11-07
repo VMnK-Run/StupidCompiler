@@ -4,6 +4,7 @@
 #include <set>
 #include <map>
 #include "util.h"
+#include "FSM.h"
 using namespace std;
 
 set<string> keyword = {"int", "void", "return", "const", "main"};
@@ -55,12 +56,16 @@ void analyseToken(string token) {
      * 1. 先用正则表达式构造NFA
      * 2. NFA转成DFA
      * 3. DFA最小化
-     * 4. 把token扔进最小化的DFA看看返回什么状态---> 标识符或变量，以及错误状态，只有这三种可能
+     * 4. 把token扔进最小化的DFA看看返回什么状态---> 标识符!或变量!，以及错误状态，只有这三种可能
      * 注意：
      * 1. 这里只需要返回TokenCode即可
      * 2. 暂时先让TokenCode都是IDN
     */
-    printToken(token, TokenCode::IDN);
+    FSM NFA = createNFA();
+    FSM DFA = NFAtoDFA(NFA);
+    FSM miniDFA = minimizeDFA(DFA);
+    int tokenCode = identity(miniDFA, token);
+    printToken(token, tokenCode);
 }
 
 void lexicalAnalysis(string fileName) {
