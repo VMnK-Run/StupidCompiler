@@ -3,6 +3,7 @@
 #include <map>
 #include <set>
 #include <vector>
+#include <stack>
 using namespace std;
 /**
  *  标识符: (a..z|A..Z)(1a_)*
@@ -33,10 +34,11 @@ public:
     FSM() = default;
     ~FSM() = default;
     FSM(set<set<char>> charList);
-    void addNode(FSM_Node* node);               // 添加节点
+    void addNode(FSM_Node* node);                       // 添加节点
     void addTrans(int from, int to, set<char> chSet);   // 添加一条转换规则
-    FSM_Node* getFisrt();                       // 获取起始节点
-    FSM_Node* getNode(int id);                  // 根据节点编号获得节点指针
+    FSM_Node* getFisrt();                               // 获取起始节点
+    FSM_Node* getNode(int id);                          // 根据节点编号获得节点指针
+    int getNum();
     void printFSM();
     set<set<char>> getCharList();
 };

@@ -51,7 +51,6 @@ void analyseToken(string token) {
         return;
     }
     /**
-     * TODO:自动机处理，周一要把这个给写了
      * 思路：
      * 1. 先用正则表达式构造NFA
      * 2. NFA转成DFA
@@ -59,7 +58,6 @@ void analyseToken(string token) {
      * 4. 把token扔进最小化的DFA看看返回什么状态---> 标识符!或变量!，以及错误状态，只有这三种可能
      * 注意：
      * 1. 这里只需要返回TokenCode即可
-     * 2. 暂时先让TokenCode都是IDN
     */
     FSM NFA = createNFA();
     FSM DFA = NFAtoDFA(NFA);
@@ -116,7 +114,6 @@ void lexicalAnalysis(string fileName) {
             } else { // 这就是一个字符组成的运算符
                 token = string(1, c);
                 printToken(token, tokenCodeMap[token]);
-                continue;
             }
             token = "";
         } else {
