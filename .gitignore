@@ -1,5 +1,5 @@
 /target
 .vscode
 *.exe
-lexical.txt
+/*.txt
 /test/*.cpp

@@ -12,10 +12,10 @@ CC := g++
 # CPP PreProcessor Flag
 CPPFLAGS := -I $(INC_DIR)
 # Compiler flags
-CFLAGS := -g -Wall
+CFLAGS := -g
 
-default: main
-all: main lexical syntax
+default: all
+all: lexical syntax
 
 main: $(SRC) $(SRC_DIR)/main.cpp
 		$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
@@ -34,9 +34,13 @@ test: $(TESTSRC)
 
 clean:
 	del *.exe
-	del lexical.txt
+	del *.txt
 
 lexical-save:
 	.\lexical.exe > lexical.txt
 
-.PHONY: clean all main
+run:
+	.\lexical.exe > lexical.txt
+	.\syntax.exe
+
+.PHONY: clean all main run

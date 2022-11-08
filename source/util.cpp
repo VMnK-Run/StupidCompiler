@@ -61,7 +61,7 @@ void printToken(string token, int code) {
                     break;
         
         case TokenCode::IDN:
-                    result += "IDN";
+                    result += "Ident";
                     break;
         case TokenCode::INT:
                     result += "INT";
