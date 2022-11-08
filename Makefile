@@ -33,6 +33,10 @@ test: $(TESTSRC)
 		./test.exe
 
 clean:
-	del *.exe 
+	del *.exe
+	del lexical.txt
+
+lexical-save:
+	.\lexical.exe > lexical.txt
 
 .PHONY: clean all main
