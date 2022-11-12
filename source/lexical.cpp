@@ -4,6 +4,7 @@
 #include <set>
 #include <map>
 #include "util.h"
+#include "SymbolTable.h"
 #include "FSM.h"
 using namespace std;
 
@@ -40,6 +41,8 @@ map<std::string, int> tokenCodeMap = {
     {",", TokenCode::SE_COMMA}
 };
 
+SymbolTable symbolTable = SymbolTable();
+
 // 使用自动机分析token
 void analyseToken(string token) {
     if(token.length() <= 0) {
@@ -64,9 +67,15 @@ void analyseToken(string token) {
     FSM miniDFA = minimizeDFA(DFA);
     int tokenCode = identity(miniDFA, token);
     printToken(token, tokenCode);
+    if(tokenCode == TokenCode::IDN) {
+        symbolTable.addSymbol(token);
+    }
 }
 
 void lexicalAnalysis(string fileName) {
+    FILE* fp;
+    fp =fopen(lexicalTxtPath,"w");
+    fwrite("", 0, 1, fp);
     ifstream file;
     file.open(fileName, std::ios::in);
     if (!file.is_open()) {
@@ -120,10 +129,16 @@ void lexicalAnalysis(string fileName) {
             token += c;
         }
     }
+    symbolTable.printTable();
 }
 
-int main() {
-    string fileName = "data/test.sy";
+int main(int argc, char **argv) {
+    string fileName;
+    if(argc == 1) {
+        fileName = "test.sy"; 
+    } else {
+        fileName = argv[1];
+    }
     lexicalAnalysis(fileName);
     return 0;
 }

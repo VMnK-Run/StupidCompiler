@@ -9,6 +9,7 @@ TJU 编译原理与技术大作业：实现C--语言的编译器前端。
 │  .gitignore
 │  Makefile
 │  README.md
+│  test.sy			// 默认解析文件
 |
 ├─data
 │      01_var_defn.sy
@@ -18,18 +19,17 @@ TJU 编译原理与技术大作业：实现C--语言的编译器前端。
 │      05_var_defn.sy
 │      grammer.txt		// 文法文件
 │      README.md
-│      test.sy
 │  
 ├─include
 │      FSM.h			// 有限自动机
-│      SymbolTable.h		// 符号表
+│      SymbolTable.h	// 符号表
 │      TokenCodes.h		// 种别码
 │      util.h
 │  
 ├─source
 │      FSM.cpp			// 有限自动机
 │      lexical.cpp		// 词法分析器
-│      main.cpp			// main函数
+│      SymbolTable.cpp	// 符号表实现
 │      syntax.cpp		// 语法分析器
 │      util.cpp
 │  
@@ -47,19 +47,19 @@ TJU 编译原理与技术大作业：实现C--语言的编译器前端。
 
 ## 编译方式
 
-+ 编译词法分析器：
++ 编译生成词法分析器：（仅生成lexical.exe文件）
 
   ```
   make lexical
   ```
 
-+ 编译语法分析器:
++ 编译生成语法分析器：（仅生成syntax.exe文件）
 
   ```
   make syntax
   ```
 
-+ 同时编译词法分析器和语法分析器
++ 同时编译出词法分析器和语法分析器：（生成lexical.exe和syntax.exe）
 
   ```
   make
@@ -73,13 +73,30 @@ TJU 编译原理与技术大作业：实现C--语言的编译器前端。
 
 ## 运行方式
 
-+ 只运行词法分析器，并将token序列输出到lexical.txt
+
++ 词法分析器运行方式：
+
+  + 不指定文件名，解析主目录下的test.sy文件：
+  
+    ```
+    .\lexical.exe
+    ```
+  
+  + 指定文件名，如解析与lexical.exe同一目录下的source.sy文件，可采用：
+  
+    ```
+    .\lexical.exe  source.sy
+    ```
+  词法分析器的输出为lexical.txt，存放解析的token序列，另一输出为符号表SymbolTable.txt。
++ 语法分析器运行方式：
 
   ```
-  make lexical-save
+  .\syntax.exe
   ```
 
-+ 同时运行词法分析器和语法分析器，将词法分析器结果输出到lexical.txt，将语法分析结果输出到syntax_analysis.txt
+  注：必须先运行词法分析器得到lexical.txt后才能运行语法分析器。
+
++ 同时运行词法分析器和语法分析器，解析主目录下的默认文件test.sy，将词法分析器结果输出到lexical.txt，将语法分析结果输出到syntax_analysis.txt。（注：若采用该指令，无法指定文件名解析其他文件，仅可替换test.sy文件中的内容进行测试。）
 
   ```
   make run

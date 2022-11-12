@@ -4,7 +4,7 @@ INC_DIR := include
 
 # all src files
 ALLSRC := $(wildcard $(SRC_DIR)/*.cpp)
-SRC += $(filter-out $(SRC_DIR)/main.cpp $(SRC_DIR)/lexical.cpp $(SRC_DIR)/syntax.cpp, $(ALLSRC))
+SRC += $(filter-out $(SRC_DIR)/LexicalAnalyzer.cpp $(SRC_DIR)/StupidCompiler.cpp $(SRC_DIR)/SyntaxAnalyzer.cpp $(SRC_DIR)/lexical.cpp $(SRC_DIR)/syntax.cpp, $(ALLSRC))
 # test src files
 TESTSRC += $(filter-out $(SRC_DIR)/main.cpp, $(SRC)) $(wildcard $(TEST_DIR)/*.cpp)
 # C++ compiler
@@ -14,18 +14,14 @@ CPPFLAGS := -I $(INC_DIR)
 # Compiler flags
 CFLAGS := -g
 
-default: all
+default:all
+
 all: lexical syntax
 
-main: $(SRC) $(SRC_DIR)/main.cpp
+lexical: $(SRC) $(SRC_DIR)/lexical.cpp 
 		$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
-
-lexical: $(SRC) $(SRC_DIR)/lexical.cpp
-		$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
-
-
-syntax: $(SRC) $(SRC_DIR)/syntax.cpp
+syntax: $(SRC_DIR)/syntax.cpp
 		$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
 test: $(TESTSRC)
@@ -36,11 +32,8 @@ clean:
 	del *.exe
 	del *.txt
 
-lexical-save:
-	.\lexical.exe > lexical.txt
-
 run:
-	.\lexical.exe > lexical.txt
+	.\lexical.exe
 	.\syntax.exe
 
-.PHONY: clean all main run
+.PHONY: clean all run

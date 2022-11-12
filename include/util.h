@@ -7,6 +7,8 @@
 #include "TokenCodes.h"
 using namespace std;
 
+const char lexicalTxtPath[] = "lexical.txt";
+
 void test();
 
 string toLower(string str);

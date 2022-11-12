@@ -104,7 +104,7 @@ FSM createNFA() {
     NFA.addNode(new FSM_Node(2, TokenCode::UNDIFNIE, false));   // 过渡节点
     NFA.addNode(new FSM_Node(3, TokenCode::INT, true));         // 数字
     NFA.addNode(new FSM_Node(4, TokenCode::IDN, true));         // 只有一个字母
-    NFA.addNode(new FSM_Node(5, TokenCode::UNDIFNIE, false));   // 过度节点
+    NFA.addNode(new FSM_Node(5, TokenCode::UNDIFNIE, false));   // 过渡节点
     NFA.addNode(new FSM_Node(6, TokenCode::IDN, true));         // 标识符
 
     NFA.addTrans(0, 1, zeroList);
@@ -124,6 +124,10 @@ FSM createNFA() {
     NFA.addTrans(5, 6, numList);
     NFA.addTrans(5, 6, letterList);
     return NFA;
+}
+
+FSM createNFA(string re) {
+
 }
 
 FSM NFAtoDFA(FSM NFA) {

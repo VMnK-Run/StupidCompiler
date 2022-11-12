@@ -49,6 +49,8 @@ public:
 
 FSM createNFA();  // 根据规则创建NFA
 
+FSM createNFA(string re);   // 根据正则表达式创建NFA
+
 FSM NFAtoDFA(FSM NFA);
 
 FSM minimizeDFA(FSM DFA);

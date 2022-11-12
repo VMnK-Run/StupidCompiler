@@ -22,6 +22,7 @@ bool isAllLetter(string str) {
 }
 
 void printToken(string token, int code) {
+    FILE *fp = freopen(lexicalTxtPath, "a",stdout);
     string result = "";
     result += token;
     result += '\t';
@@ -77,6 +78,9 @@ void printToken(string token, int code) {
         result += "," + token + ">";
     }
     cout << result << endl;
+    fflush(fp);
+    fclose(fp);
+    freopen("CON","w",stdout);
 }
 
 set<char> getLetterList(char c) {
