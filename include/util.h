@@ -15,7 +15,7 @@ string toLower(string str);
 
 bool isAllLetter(string str);
 
-void printToken(string token, int code);
+void printToken(string token, int code, int lineNum);
 
 set<char> getLetterList(char ch);
 

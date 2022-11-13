@@ -21,7 +21,7 @@ bool isAllLetter(string str) {
     return true;
 }
 
-void printToken(string token, int code) {
+void printToken(string token, int code, int lineNum) {
     FILE *fp = freopen(lexicalTxtPath, "a",stdout);
     string result = "";
     result += token;
@@ -81,6 +81,9 @@ void printToken(string token, int code) {
     fflush(fp);
     fclose(fp);
     freopen("CON","w",stdout);
+    if(code == TokenCode::UNDIFNIE) {
+        cout << "UNDIFNIED token: " << token << " in line " << lineNum << endl;
+    }
 }
 
 set<char> getLetterList(char c) {

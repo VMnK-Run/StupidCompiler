@@ -292,7 +292,8 @@ bool doAnalysis(){
         if(Vt.count(token)){
             if(token==*it){
                 if(token=="#"){
-                    cout << ++cnt_analysis << " " << token << "#" << *it << "\t" << "accept" << endl;
+                    // cout << ++cnt_analysis << " " << token << "#" << *it << "\t" << "accept" << endl;
+                    cout << ++cnt_analysis << " "  << "EOF#EOF" << "\t" << "accept" << endl;
                     fflush(fp);
                     fclose(fp);
                     freopen("CON","w",stdout);
@@ -302,6 +303,7 @@ bool doAnalysis(){
                     top--,it++;
                 }
             } else {
+                cout<< ++cnt_analysis << " " << token << "#" << *it << "\t" << "error" << endl;
                 fflush(fp);
                 fclose(fp);
                 freopen("CON","w",stdout);
@@ -311,6 +313,7 @@ bool doAnalysis(){
             int Id = Map[token];
             int id = vt[*it];
             if(table[Id][id].second==-1){
+                cout<< ++cnt_analysis << " " << token << "#" << *it << "\t" << "error" << endl;
                 fflush(fp);
                 fclose(fp);
                 freopen("CON","w",stdout);

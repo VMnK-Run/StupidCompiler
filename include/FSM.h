@@ -41,15 +41,13 @@ public:
     void addTrans(int from, int to, set<char> chSet);   // 添加一条转换规则
     FSM_Node* getFisrt();                               // 获取起始节点
     FSM_Node* getNode(int id);                          // 根据节点编号获得节点指针
-    int getNum();
+    int getNum();                                       // 获取结点数量
     void printFSM();
     set<set<char>> getCharList();
 };
 
 
 FSM createNFA();  // 根据规则创建NFA
-
-FSM createNFA(string re);   // 根据正则表达式创建NFA
 
 FSM NFAtoDFA(FSM NFA);
 

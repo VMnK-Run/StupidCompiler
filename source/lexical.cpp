@@ -42,6 +42,10 @@ map<std::string, int> tokenCodeMap = {
 };
 
 SymbolTable symbolTable = SymbolTable();
+FSM NFA = createNFA();
+FSM DFA = NFAtoDFA(NFA);
+FSM miniDFA = minimizeDFA(DFA);
+int lineNum = 0;
 
 // 使用自动机分析token
 void analyseToken(string token) {
@@ -50,7 +54,7 @@ void analyseToken(string token) {
     }
     // 先判断好是不是关键字
     if(isAllLetter(token) && keyword.count(toLower(token))) {
-        printToken(token, tokenCodeMap[token]);
+        printToken(token, tokenCodeMap[token], lineNum);
         return;
     }
     /**
@@ -62,17 +66,16 @@ void analyseToken(string token) {
      * 注意：
      * 1. 这里只需要返回TokenCode即可
     */
-    FSM NFA = createNFA();
-    FSM DFA = NFAtoDFA(NFA);
-    FSM miniDFA = minimizeDFA(DFA);
+    
     int tokenCode = identity(miniDFA, token);
-    printToken(token, tokenCode);
+    printToken(token, tokenCode, lineNum);
     if(tokenCode == TokenCode::IDN) {
         symbolTable.addSymbol(token);
     }
 }
 
 void lexicalAnalysis(string fileName) {
+
     FILE* fp;
     fp =fopen(lexicalTxtPath,"w");
     fwrite("", 0, 1, fp);
@@ -93,11 +96,14 @@ void lexicalAnalysis(string fileName) {
         if (c == ' ' || c == '\t' || c == '\n') {
             analyseToken(token);
             token = "";
+            if(c == '\n') {
+                lineNum++;
+            }
             continue;
         } else if (boundary.count(c)) { // 界符
             analyseToken(token);
             token = string(1, c);
-            printToken(token, tokenCodeMap[token]);
+            printToken(token, tokenCodeMap[token], lineNum);
             token = "";
             continue;
         } else if (operation.count(c) || operationBeginChar.count(c)) { // 运算符
@@ -109,20 +115,20 @@ void lexicalAnalysis(string fileName) {
                 tryOp += nextChar;
                 if(operationOf2Char.count(tryOp)) { // 真的是两个字符组成的运算符
                     token = tryOp;
-                    printToken(token, tokenCodeMap[token]);
+                    printToken(token, tokenCodeMap[token], lineNum);
                 } else if(operation.count(c)) { // 普通的由一个字符组成的运算符
                     token = string(1, c);
-                    printToken(token, tokenCodeMap[token]);
+                    printToken(token, tokenCodeMap[token], lineNum);
                     file.putback(nextChar);
                 } else {
                     //出错了，错误token
                     token = string(1, c);
-                    printToken(token, TokenCode::UNDIFNIE);
+                    printToken(token, TokenCode::UNDIFNIE, lineNum);
                     file.putback(nextChar);
                 }
             } else { // 这就是一个字符组成的运算符
                 token = string(1, c);
-                printToken(token, tokenCodeMap[token]);
+                printToken(token, tokenCodeMap[token], lineNum);
             }
             token = "";
         } else {

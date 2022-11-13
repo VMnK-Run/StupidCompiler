@@ -126,10 +126,6 @@ FSM createNFA() {
     return NFA;
 }
 
-FSM createNFA(string re) {
-
-}
-
 FSM NFAtoDFA(FSM NFA) {
     FSM DFA = FSM(NFA.getCharList());
 
